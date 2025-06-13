@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CommentForm from "./CommentForm";
 
 export default function Comments() {
   const [comments, setComments] = useState([]);
@@ -29,9 +30,31 @@ export default function Comments() {
     fetchComments();
   }, []);
 
+  async function handleAddComment(comment) {
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(comment),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(" Failed to add comment");
+      }
+
+      const newComment = await response.json();
+      setComments((prev) => [...prev, newComment]);
+    } catch (error) {
+      setError(error);
+    }
+  }
+
   return (
     <div>
       <h2>Comment Manager</h2>
+      <CommentForm onAddComment={handleAddComment} />
       {isLoading && <p>Loading...</p>}
       {error && <p>{error.message || "Failed to fetch comments"}</p>}
       <ul>

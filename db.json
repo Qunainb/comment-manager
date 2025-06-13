@@ -11,6 +11,12 @@
       "author": "John",
       "text": "Thanks for sharing!",
       "date": "2025-06-12"
+    },
+    {
+      "id": "ab88",
+      "author": "Hamza",
+      "comment": "This is a test comment",
+      "date": "2025-06-13"
     }
   ]
 }
