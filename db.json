@@ -1,0 +1,16 @@
+{
+  "comments": [
+    {
+      "id": 1,
+      "author": "Qunain",
+      "text": "This is a great post!",
+      "date": "2025-06-13"
+    },
+    {
+      "id": 2,
+      "author": "John",
+      "text": "Thanks for sharing!",
+      "date": "2025-06-12"
+    }
+  ]
+}
