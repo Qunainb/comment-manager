@@ -2,20 +2,20 @@ import { useState } from "react";
 
 export default function CommentForm({ onAddComment }) {
   const [author, setAuthor] = useState("");
-  const [comment, setComment] = useState("");
+  const [text, setText] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
 
     const newComment = {
       author,
-      comment,
+      text,
       date: new Date().toISOString().slice(0, 10),
     };
 
     onAddComment(newComment);
     setAuthor("");
-    setComment("");
+    setText("");
   }
 
   return (
@@ -30,8 +30,8 @@ export default function CommentForm({ onAddComment }) {
       <input
         type="text"
         placeholder="Comment"
-        value={comment}
-        onChange={(event) => setComment(event.target.value)}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
         required
       />
       <button type="submit">Add comment</button>

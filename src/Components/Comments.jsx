@@ -51,6 +51,46 @@ export default function Comments() {
     }
   }
 
+  async function handleDelete(id) {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete data");
+      }
+
+      setComments((prev) => prev.filter((comment) => comment.id !== id));
+    } catch (error) {
+      setError(error);
+    }
+  }
+
+  async function handleUpdate(id) {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ text: "Updated Comment" }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update comment");
+      }
+
+      const updatedComment = await response.json();
+
+      setComments((prev) =>
+        prev.map((comment) => (comment.id === id ? updatedComment : comment))
+      );
+    } catch (error) {
+      setError(error);
+    }
+  }
+
   return (
     <div>
       <h2>Comment Manager</h2>
@@ -61,6 +101,8 @@ export default function Comments() {
         {comments.map((comment) => (
           <li key={comment.id}>
             <strong>{comment.author}:</strong> {comment.text} {comment.date}
+            <button onClick={() => handleDelete(comment.id)}>❌</button>
+            <button onClick={() => handleUpdate(comment.id)}>✏️</button>
           </li>
         ))}
       </ul>
